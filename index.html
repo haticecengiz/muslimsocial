@@ -1,0 +1,1548 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ernest Gellner — Müslüman Toplum</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --gold:       #c8a45a;
+  --gold-light: #e0c47a;
+  --navy:       #0d1b2a;
+  --navy2:      #152233;
+  --navy3:      #1e3048;
+  --teal:       #2a7a6a;
+  --teal-light: #5ec9b0;
+  --brown:      #8b3a2a;
+  --brown-light:#e07a6a;
+  --text:       #f0e8d8;
+  --muted:      #c2d4e0;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{height:100%;background:var(--navy);color:var(--text);font-family:'Source Sans 3',sans-serif;overflow:hidden;}
+
+/* ========== PROGRESS BAR ========== */
+#progress{position:fixed;top:0;left:0;height:4px;background:linear-gradient(90deg,var(--gold),var(--gold-light));z-index:1000;transition:width .35s ease;}
+
+/* ========== SLIDE COUNTER ========== */
+#counter{position:fixed;bottom:14px;left:50%;transform:translateX(-50%);font-size:14px;font-weight:600;background:rgba(13,27,42,0.8);color:var(--gold-light);padding:5px 16px;border-radius:20px;border:1px solid rgba(200,164,90,0.3);z-index:900;letter-spacing:0.5px;font-family:'Source Sans 3';}
+
+/* ========== NAV ARROWS ========== */
+.nav-arrow{position:fixed;top:50%;transform:translateY(-50%);width:46px;height:46px;border-radius:50%;background:rgba(13,27,42,0.7);border:1px solid rgba(200,164,90,0.35);color:var(--gold-light);font-size:22px;cursor:pointer;z-index:900;display:flex;align-items:center;justify-content:center;transition:all .25s;font-family:'Playfair Display',serif;}
+.nav-arrow:hover{background:rgba(200,164,90,0.18);border-color:var(--gold);color:#fff;}
+#prev-btn{left:14px;}
+#next-btn{right:14px;}
+
+/* ========== NAV PANEL ========== */
+#nav-toggle{position:fixed;bottom:14px;right:14px;width:38px;height:38px;background:rgba(13,27,42,0.85);border:1px solid var(--gold);border-radius:8px;color:var(--gold-light);font-size:18px;cursor:pointer;z-index:1100;}
+#nav-toggle:hover{background:rgba(200,164,90,0.18);}
+#nav-panel{position:fixed;top:0;right:0;width:265px;height:100%;background:rgba(13,27,42,0.97);border-left:1px solid rgba(200,164,90,0.25);transform:translateX(100%);transition:transform .35s ease;z-index:1050;overflow-y:auto;padding:54px 0 60px;}
+#nav-panel.open{transform:translateX(0);}
+#nav-panel .nav-item{padding:9px 16px;cursor:pointer;border-left:3px solid transparent;transition:all .2s;font-size:13px;color:var(--muted);}
+#nav-panel .nav-item:hover{background:rgba(200,164,90,0.08);color:var(--text);}
+#nav-panel .nav-item.active{border-left-color:var(--gold);background:rgba(200,164,90,0.1);color:var(--gold-light);}
+#nav-panel .nav-item .nav-section{font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--gold);margin-bottom:2px;font-family:'Playfair Display';font-style:italic;}
+#nav-panel .nav-item .nav-title{line-height:1.3;font-weight:600;}
+#nav-panel::-webkit-scrollbar{width:5px;}
+#nav-panel::-webkit-scrollbar-thumb{background:rgba(200,164,90,0.4);border-radius:3px;}
+
+/* ========== SLIDE CONTAINER ========== */
+#slides-container{width:100%;height:100%;position:relative;}
+.slide{position:absolute;top:0;left:0;width:100%;height:100%;display:none;flex-direction:column;animation:fadeIn .45s ease;}
+.slide.active{display:flex;}
+@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+
+/* ========== COVER SLIDE ========== */
+.slide-cover{background-size:cover;background-position:center;position:relative;}
+.slide-cover::before{content:"";position:absolute;inset:0;background:linear-gradient(95deg,rgba(13,27,42,0.92) 0%,rgba(13,27,42,0.7) 45%,rgba(13,27,42,0.25) 100%);}
+.slide-cover .cover-inner{position:relative;z-index:2;flex:1;display:flex;flex-direction:column;justify-content:center;padding:60px 80px;}
+.slide-cover .eyebrow{font-family:'Playfair Display';font-style:italic;color:var(--gold);font-size:clamp(15px,1.4vw,18px);letter-spacing:3px;text-transform:uppercase;margin-bottom:18px;}
+.slide-cover h1{font-family:'Playfair Display',serif;font-size:clamp(40px,5.5vw,72px);font-weight:700;line-height:1.05;color:var(--text);margin-bottom:18px;max-width:900px;}
+.slide-cover h1 em{color:var(--gold);font-style:italic;font-weight:400;}
+.slide-cover .subtitle{font-size:clamp(18px,1.8vw,24px);color:var(--muted);margin-bottom:34px;max-width:700px;line-height:1.4;font-weight:300;}
+.slide-cover .tags{display:flex;gap:10px;flex-wrap:wrap;}
+.slide-cover .tag{background:rgba(200,164,90,0.16);border:1px solid var(--gold);border-radius:20px;padding:6px 16px;font-size:13px;color:var(--gold-light);letter-spacing:0.5px;}
+.slide-cover .author-line{margin-top:auto;font-family:'Playfair Display';font-style:italic;color:var(--muted);font-size:16px;}
+.slide-cover .author-line strong{color:var(--gold-light);font-style:normal;font-weight:600;}
+
+/* ========== STANDARD SLIDE ========== */
+.slide-std{background:var(--navy);}
+.slide-header{background:var(--navy2);padding:14px 52px;border-bottom:2px solid var(--gold);display:flex;align-items:center;gap:18px;flex-shrink:0;}
+.section-tag{background:rgba(200,164,90,0.18);border:1px solid var(--gold);border-radius:14px;padding:4px 14px;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold-light);font-weight:600;flex-shrink:0;font-family:'Source Sans 3';}
+.slide-header h2{font-family:'Playfair Display',serif;font-size:clamp(24px,2.8vw,38px);color:var(--text);font-weight:700;line-height:1.2;}
+.slide-body{flex:1;display:flex;flex-direction:column;justify-content:center;padding:22px 52px;overflow-y:auto;}
+
+/* ========== SPLIT SLIDE ========== */
+.slide-split .body-row{flex:1;display:flex;overflow:hidden;}
+.img-panel{width:36%;position:relative;overflow:hidden;flex-shrink:0;animation:fadeUp .6s ease;}
+.img-panel img{width:100%;height:100%;object-fit:cover;display:block;}
+.img-panel::after{content:"";position:absolute;inset:0;background:linear-gradient(270deg,rgba(13,27,42,0.55) 0%,rgba(13,27,42,0) 60%);pointer-events:none;}
+.img-caption{position:absolute;bottom:0;left:0;right:0;padding:16px 20px;background:linear-gradient(180deg,rgba(13,27,42,0) 0%,rgba(13,27,42,0.85) 80%);font-style:italic;color:rgba(255,255,255,0.85);font-size:14px;font-family:'Playfair Display';text-align:center;z-index:2;}
+.content-panel{flex:1;padding:22px 44px 22px 36px;display:flex;flex-direction:column;justify-content:center;overflow-y:auto;}
+
+/* ========== CARDS ========== */
+.cards-2,.cards-3,.cards-4{display:grid;gap:14px;margin:6px 0;}
+.cards-2{grid-template-columns:1fr 1fr;}
+.cards-3{grid-template-columns:1fr 1fr 1fr;gap:12px;}
+.cards-4{grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:12px;}
+.card{background:var(--navy2);border:1px solid rgba(255,255,255,0.09);border-radius:7px;padding:16px 18px;animation:fadeUp .5s ease both;}
+.card:nth-child(1){animation-delay:.06s;}
+.card:nth-child(2){animation-delay:.14s;}
+.card:nth-child(3){animation-delay:.22s;}
+.card:nth-child(4){animation-delay:.30s;}
+.card h3{font-family:'Playfair Display',serif;font-size:clamp(15px,1.5vw,20px);font-weight:700;margin-bottom:8px;color:var(--gold-light);line-height:1.25;}
+.card p,.card li{font-size:clamp(14px,1.3vw,17px);line-height:1.5;color:var(--muted);}
+.card ul,.card ol{margin-left:18px;margin-top:4px;}
+.card.teal{border-color:var(--teal);}
+.card.teal h3{color:var(--teal-light);}
+.card.brown{border-color:var(--brown);}
+.card.brown h3{color:var(--brown-light);}
+.card.gold{border-color:var(--gold);}
+.card.gold h3{color:var(--gold-light);}
+.card.center-dark{border:2px solid var(--gold);background:var(--navy3);}
+.card.center-dark h3{color:var(--gold-light);}
+
+/* ========== QUOTE BANNER ========== */
+.quote-banner{background:var(--navy3);border-left:5px solid var(--gold);border-radius:4px;padding:15px 22px;margin-bottom:16px;font-family:'Playfair Display',serif;font-style:italic;font-size:clamp(16px,1.75vw,22px);color:var(--text);line-height:1.45;animation:fadeUp .5s ease;}
+.quote-banner.center{text-align:center;}
+.quote-banner small{display:block;font-size:13px;color:var(--gold-light);font-style:normal;font-family:'Source Sans 3';margin-top:8px;letter-spacing:0.5px;}
+
+/* ========== TABLE ========== */
+.comp-table{width:100%;border-collapse:collapse;font-size:clamp(14px,1.3vw,17px);margin:6px 0;}
+.comp-table th{font-family:'Playfair Display',serif;font-size:16px;padding:12px 14px;text-align:left;border-bottom:2px solid var(--gold);}
+.comp-table th:first-child{color:var(--muted);}
+.comp-table th.col-brown{background:rgba(139,58,42,0.15);color:var(--brown-light);}
+.comp-table th.col-teal{background:rgba(42,122,106,0.15);color:var(--teal-light);}
+.comp-table td{padding:11px 14px;border-bottom:1px solid rgba(255,255,255,0.08);line-height:1.45;color:var(--muted);vertical-align:top;animation:fadeUp .5s ease both;}
+.comp-table td:first-child{font-weight:600;color:var(--text);}
+.comp-table tr:hover td{background:rgba(200,164,90,0.04);}
+.comp-table td.col-brown{background:rgba(139,58,42,0.06);}
+.comp-table td.col-teal{background:rgba(42,122,106,0.06);}
+
+/* ========== ITEM ROWS ========== */
+.items-list{display:flex;flex-direction:column;gap:9px;}
+.item-row{display:flex;align-items:flex-start;gap:14px;padding:10px 14px;background:rgba(255,255,255,0.03);border-radius:6px;animation:fadeUp .5s ease both;}
+.item-row:nth-child(1){animation-delay:.06s;}
+.item-row:nth-child(2){animation-delay:.14s;}
+.item-row:nth-child(3){animation-delay:.22s;}
+.item-row:nth-child(4){animation-delay:.30s;}
+.item-row:nth-child(5){animation-delay:.38s;}
+.item-row:nth-child(6){animation-delay:.46s;}
+.item-row:nth-child(7){animation-delay:.54s;}
+.step-num{flex-shrink:0;width:30px;height:30px;border-radius:50%;background:var(--navy3);border:2px solid var(--gold);color:var(--gold-light);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;font-family:'Playfair Display';}
+.step-num.teal{background:var(--teal);border-color:var(--teal-light);color:#fff;}
+.step-num.brown{background:rgba(139,58,42,0.5);border-color:var(--brown-light);color:#fdd;}
+.item-row .item-text{flex:1;font-size:clamp(13px,1.25vw,16px);line-height:1.5;color:var(--muted);padding-top:3px;}
+.item-row .item-text strong{color:var(--text);font-weight:600;}
+
+/* ========== FOOTER NOTE ========== */
+.footer-note{margin-top:14px;padding-top:12px;border-top:1px solid rgba(200,164,90,0.22);font-family:'Playfair Display',serif;font-style:italic;color:var(--gold-light);font-size:clamp(13px,1.25vw,17px);text-align:center;line-height:1.5;}
+
+/* ========== KEY FORMULA ========== */
+.key-formula{background:linear-gradient(135deg,rgba(200,164,90,0.08),rgba(200,164,90,0.02));border:1px solid var(--gold);border-radius:8px;padding:18px 24px;margin:10px 0;text-align:center;font-family:'Playfair Display',serif;font-size:clamp(16px,1.7vw,21px);color:var(--gold-light);font-weight:700;letter-spacing:0.5px;line-height:1.35;animation:fadeUp .5s ease;}
+
+/* ========== DIVIDER SLIDE ========== */
+.slide-divider{background:linear-gradient(135deg,var(--navy) 0%,var(--navy2) 50%,var(--navy3) 100%);justify-content:center;align-items:center;text-align:center;}
+.slide-divider .div-section{font-family:'Playfair Display';font-style:italic;color:var(--gold);font-size:clamp(20px,2vw,28px);letter-spacing:6px;margin-bottom:20px;text-transform:uppercase;}
+.slide-divider h1{font-family:'Playfair Display',serif;font-size:clamp(36px,4.5vw,60px);color:var(--text);font-weight:700;line-height:1.15;max-width:900px;padding:0 40px;margin-bottom:24px;}
+.slide-divider .div-subtitle{font-family:'Playfair Display';font-style:italic;color:var(--muted);font-size:clamp(16px,1.6vw,22px);max-width:700px;padding:0 40px;line-height:1.5;}
+.slide-divider .div-deco{width:80px;height:2px;background:var(--gold);margin:30px auto;}
+
+/* ========== CLOSING SLIDE ========== */
+.slide-close{background:var(--navy);justify-content:center;align-items:center;text-align:center;padding:50px 80px;}
+.close-quote{font-family:'Playfair Display',serif;font-style:italic;font-size:clamp(17px,2.1vw,28px);color:var(--text);max-width:900px;line-height:1.45;margin-bottom:34px;position:relative;padding:0 40px;}
+.close-quote::before{content:"\201C";position:absolute;top:-30px;left:0;font-size:80px;color:var(--gold);font-family:'Playfair Display';opacity:0.5;}
+.close-cards{display:grid;grid-template-columns:1fr 1fr;gap:18px;max-width:760px;width:100%;margin-bottom:36px;}
+.close-cards .card h3{font-size:18px;}
+.close-logo{font-family:'Playfair Display';font-style:italic;color:var(--gold);font-size:14px;letter-spacing:2px;}
+
+/* ========== TWO-COL FLEX ========== */
+.two-col{display:flex;gap:18px;align-items:stretch;}
+.two-col > *{flex:1;}
+
+/* ========== THREE-COL FAN ========== */
+.three-fan{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:14px;margin:6px 0;}
+.three-fan .fan-arrow{font-size:32px;color:var(--gold);font-family:'Playfair Display';font-weight:700;}
+
+/* ========== SCROLLBAR ========== */
+.slide-body::-webkit-scrollbar,.content-panel::-webkit-scrollbar{width:6px;}
+.slide-body::-webkit-scrollbar-thumb,.content-panel::-webkit-scrollbar-thumb{background:rgba(200,164,90,0.3);border-radius:3px;}
+
+/* ========== UTILITIES ========== */
+.text-gold{color:var(--gold-light);}
+.text-teal{color:var(--teal-light);}
+.text-brown{color:var(--brown-light);}
+.fw-bold{font-weight:700;}
+.fst-italic{font-style:italic;}
+.mb-1{margin-bottom:8px;}
+.mb-2{margin-bottom:14px;}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width:768px){
+  .slide-cover .cover-inner{padding:30px;}
+  .slide-header{padding:12px 20px;}
+  .slide-body{padding:18px 20px;}
+  .content-panel{padding:18px 20px;}
+  .img-panel{width:100%;}
+  .slide-split .body-row{flex-direction:column;}
+  .img-panel{height:38%;}
+  .cards-3{grid-template-columns:1fr;}
+  .cards-4{grid-template-columns:1fr;grid-template-rows:auto;}
+  #prev-btn,#next-btn{width:38px;height:38px;}
+  #nav-panel{width:80%;}
+  .three-fan{grid-template-columns:1fr;}
+  .three-fan .fan-arrow{display:none;}
+}
+</style>
+</head>
+<body>
+
+<div id="progress"></div>
+<div id="counter">1 / 56</div>
+<button class="nav-arrow" id="prev-btn">‹</button>
+<button class="nav-arrow" id="next-btn">›</button>
+<button id="nav-toggle">☰</button>
+<aside id="nav-panel"></aside>
+<main id="slides-container"></main>
+
+<script>
+/* ============================================================
+   SLIDES DATA — Ernest Gellner: Müslüman Toplum
+   Hazırlayan: Hatice Cengiz
+   ============================================================ */
+const SLIDES = [
+
+/* ---------- COVER ---------- */
+{
+  type:'cover',
+  section:'Kapak',
+  title:'Ernest Gellner — Müslüman Toplum',
+  image:'01_cover.jpg',
+  body:`
+    <div class="eyebrow">Akademik Sunum · Din Sosyolojisi</div>
+    <h1>Ernest Gellner<br><em>Müslüman Toplum</em></h1>
+    <div class="subtitle">Bölüm 1: <em>"İnsan İnancında Gelgitler"</em><br>Hume'dan İbn Haldun'a, Kabileden Modernliğe</div>
+    <div class="tags">
+      <span class="tag">Din Sosyolojisi</span>
+      <span class="tag">İslam Çalışmaları</span>
+      <span class="tag">Sosyal Antropoloji</span>
+      <span class="tag">Modernleşme Kuramı</span>
+    </div>
+    <div class="author-line">Hazırlayan: <strong>Hatice Cengiz</strong></div>
+  `
+},
+
+/* ---------- 1. GELLNER HAYAT ---------- */
+{
+  type:'split',
+  section:'Giriş',
+  title:'Ernest Gellner — Hayatı ve Çalışmaları',
+  image:'02_gellner_portrait.jpg',
+  imageCaption:'Ernest André Gellner (1925–1995)',
+  body:`
+    <div class="quote-banner">Çek-Yahudi kökenli, Britanya'da yetişmiş, Avrupa'nın çöküşüne ve yeniden kuruluşuna tanık olmuş bir entelektüel.<small>13 yaşında kaçtığı Prag'a, 68 yaşında profesör olarak geri döndü.</small></div>
+    <div class="cards-2">
+      <div class="card gold">
+        <h3>Akademik Yolculuk</h3>
+        <p>Oxford (Balliol) → Londra Ünv. (doktora) → LSE (1949–84) → Cambridge (1984–93) → Central European Ünv., Prag (1993–95).</p>
+      </div>
+      <div class="card gold">
+        <h3>Dört Büyük Alan</h3>
+        <p>Linguistic philosophy eleştirisi · Mağrip antropolojisi · İslam sosyolojisi · Milliyetçilik kuramı.</p>
+      </div>
+      <div class="card teal">
+        <h3>Övgüler</h3>
+        <p>Tony Judt: <em>"20. yüzyılın son büyük Aydınlanma düşünürü."</em> Talal Asad bile İslam'a ciddi yaklaşmış nadir Batılı sosyolog olarak değerlendirdi.</p>
+      </div>
+      <div class="card brown">
+        <h3>Eleştiriler</h3>
+        <p>Edward Said: oryantalist. Talal Asad: "İslam"ı özselleştirdi. Postkolonyal eleştirmenler: Mağrip merkezli sınırlılık.</p>
+      </div>
+    </div>
+    <div class="footer-note">Üç şeye karşı: postmodernizm, romantik milliyetçilik, olağan dil felsefesi. Üçüne karşı akıl, bilim, evrensel insan değerleri.</div>
+  `
+},
+
+/* ---------- 2. KAVRAM HARITASI ---------- */
+{
+  type:'std',
+  section:'Giriş',
+  title:'Kavram Haritası — Gellner ve Diğer Düşünürler',
+  body:`
+    <div class="cards-4">
+      <div class="card teal">
+        <h3>⬆ Destek Aldıkları (Meşruiyet)</h3>
+        <p><strong>Tocqueville · Hegel · Hodgson · Charnay</strong></p>
+        <p style="margin-top:6px;font-size:14px;font-style:italic;">Gellner'in tezini onaylayan, otorite için çağrılan isimler.</p>
+      </div>
+      <div class="card gold">
+        <h3>← İskelet (Referans Aldıkları)</h3>
+        <p><strong>Hume · İbn Haldun · Platon</strong></p>
+        <p style="margin-top:6px;font-size:14px;font-style:italic;">Gellner'in kavramsal sözlüğünün omurgasını oluşturanlar.</p>
+      </div>
+      <div class="card brown">
+        <h3>Karşısında Konuştukları →</h3>
+        <p><strong>Frazer · Weber · Nietzsche</strong></p>
+        <p style="margin-top:6px;font-size:14px;font-style:italic;">Sınırları gösterilen, eleştirilen, kendisini onlara karşı konumlandırdığı isimler.</p>
+      </div>
+      <div class="card">
+        <h3>⬇ Arka Planda İşleyen</h3>
+        <p><strong>Robertson Smith · Vico</strong></p>
+        <p style="margin-top:6px;font-size:14px;font-style:italic;">Eleştirel atıf düzeyinde, kavramsal olarak istifade edilmeyen ama anılan figürler.</p>
+      </div>
+    </div>
+    <div class="footer-note">Gellner'in tezi tek bir geleneğin uzantısı değil, üç koldan örülmüş bir sentezdir.</div>
+  `
+},
+
+/* ---------- 3. TEMEL CERCEVE ---------- */
+{
+  type:'std',
+  section:'Bölüm 1',
+  title:'Gellner\'in Temel Çerçevesi',
+  body:`
+    <div class="key-formula">İSLAM, TOPLUMSAL BİR DÜZEN PROJESİDİR.</div>
+    <div class="quote-banner center">Neden İslam modern dünyada diğer dinlerin aksine varlığını güçlü bir şekilde sürdürebiliyor?</div>
+    <div class="cards-4">
+      <div class="card brown">
+        <h3>Hristiyanlık</h3>
+        <p>Modern dünyada inancını tanınamayacak ölçüde yeniden yorumlamak zorunda kaldı. Sekülerleşmenin en büyük kanıtı.</p>
+      </div>
+      <div class="card brown">
+        <h3>Konfüçyüsçülük</h3>
+        <p>Kendi yurdunda — Çin'de — reddedildi.</p>
+      </div>
+      <div class="card brown">
+        <h3>Hinduizm</h3>
+        <p>Halk dini olarak devam ediyor; seçkinler ne onaylıyor ne reddediyor.</p>
+      </div>
+      <div class="card teal">
+        <h3>İslam</h3>
+        <p>Hem halkı hem geleneği kapsayan ciddi bir din olarak ayakta kalmayı sürdürüyor. <strong>İstisnai konumda.</strong></p>
+      </div>
+    </div>
+    <div class="footer-note">Resmi kilise ve ruhban sınıfı yok — ama ulema ile toplum iç içe geçmiş. Bu yapı modern dünyada güçlü kalmasını mı sağlıyor?</div>
+  `
+},
+
+/* ---------- 4. HUME ---------- */
+{
+  type:'split',
+  section:'Bölüm 1',
+  title:'İskelet — David Hume\'un Salınım Kuramı',
+  image:'03_hume_pendulum.jpg',
+  imageCaption:'Tektanrıcılık ↔ Çoktanrıcılık: insan inancının ezeli salınımı',
+  body:`
+    <div class="quote-banner">Hume'un dinsel sosyolojisi, büyük olasılıkla İslam'ın toplumsal rolüne ilişkin en iyi yaklaşımdır.<small>— Ernest Gellner</small></div>
+    <div class="items-list">
+      <div class="item-row"><span class="step-num">1</span><div class="item-text">Önce <strong>tektanrıcılık</strong> hâkim olur — Tanrı o kadar yüceltilir ki ulaşılamaz hale gelir.</div></div>
+      <div class="item-row"><span class="step-num">2</span><div class="item-text">Sıradan insan bu aşkın Tanrı'ya yaklaşmak için <strong>aracılara</strong> ihtiyaç duyar.</div></div>
+      <div class="item-row"><span class="step-num">3</span><div class="item-text">Yavaş yavaş <strong>çoktanrıcı unsurlar</strong> geri döner — veliler, türbeler, halk dini genişler.</div></div>
+      <div class="item-row"><span class="step-num">4</span><div class="item-text">Tepki gelir — <strong>reformcular, arındırıcılar</strong> ortaya çıkar.</div></div>
+      <div class="item-row"><span class="step-num">5</span><div class="item-text"><strong>Tektanrıcılık yeniden yükselir.</strong> Döngü devam eder.</div></div>
+    </div>
+    <div class="footer-note"><span class="text-gold">Gellner'in özgün buluşu:</span> Yüksek İslam (kitabî, ulema, kentli) ile Düşük İslam (evliya, tarikat, kırsal) — Hume'un salınımının somut İslamî biçimi.</div>
+  `
+},
+
+/* ---------- 5. DESTEK ISIMLER ---------- */
+{
+  type:'std',
+  section:'Bölüm 1',
+  title:'Destek / Meşruiyet — Otorite İçin Çağrılan İsimler',
+  body:`
+    <div class="cards-4">
+      <div class="card teal">
+        <h3>Alexis de Tocqueville (1805–1859)</h3>
+        <p>İslam'da din-devlet bütünleşmesi tezi. Gellner: "Tocqueville de bunu gözlemlemişti" diyerek başlangıç noktası olarak alır.</p>
+      </div>
+      <div class="card teal">
+        <h3>G.W.F. Hegel (1770–1831)</h3>
+        <p>İslam'ı "moderniteye en açık din" olarak değerlendirmişti. Gellner Alman idealizminin otoritesiyle tezini destekler.</p>
+      </div>
+      <div class="card teal">
+        <h3>Marshall Hodgson (1922–1968)</h3>
+        <p>İslam'ın ahlaki sorumluluğu ve bireysel hesap verebilirliği. Weber'in yapmadığı ahlak-kapitalizm analizini gündeme getirir.</p>
+      </div>
+      <div class="card teal">
+        <h3>Jean-Paul Charnay (1928–2013)</h3>
+        <p>İlk günah doktrininin reddi → daha bireyci ahlaki yapı. Hodgson-Charnay ikilisi alternatif din-ekonomi çerçevesi sunar.</p>
+      </div>
+    </div>
+    <div class="footer-note">Bu dört isim, Gellner'in tezini "ben yalnız değilim — bu yaklaşım meşru ve köklüdür" diye konumlandırması içindir.</div>
+  `
+},
+
+/* ---------- 6. DIYALOG ISIMLER ---------- */
+{
+  type:'std',
+  section:'Bölüm 1',
+  title:'Diyalog / Eleştiri — Sınırları Gösterilen İsimler',
+  body:`
+    <div class="cards-4">
+      <div class="card brown">
+        <h3>James Frazer (1854–1941)</h3>
+        <p>Üç aşamalı evrim: büyü → din → bilim. Gellner: aşırı psikolojik. İslam'da Yüksek-Düşük ayrımı evrim değil <strong>eş zamanlı salınım</strong>.</p>
+      </div>
+      <div class="card brown">
+        <h3>Max Weber (1864–1920)</h3>
+        <p>Hindistan, Çin, Musevilik üzerine çalışmaları İslam için benzer çerçeve sunmaz. Gellner kendi tezinin bir <strong>boşluğu doldurduğunu</strong> ifade eder.</p>
+      </div>
+      <div class="card brown">
+        <h3>Friedrich Nietzsche (1844–1900)</h3>
+        <p>Hristiyanlık eleştirisi referans alınır. Hume'un zaaflarını görünür kılmak için bir kontrast olarak kullanılır.</p>
+      </div>
+      <div class="card brown">
+        <h3>Platon (M.Ö. 428–348)</h3>
+        <p>Doğrudan tartışılmaz; ama "kurtlar/koyunlar" tipolojisi Platon'un Devlet'inin İslamî versiyonu olarak kullanılır — kavramsal arka plan.</p>
+      </div>
+    </div>
+    <div class="footer-note">Gellner bu isimlerden <em>yararlanmaz</em>; aksine kendi pozisyonunu onlara karşı konumlandırır.</div>
+  `
+},
+
+/* ---------- BÖLÜM 2 DIVIDER ---------- */
+{
+  type:'divider',
+  section:'Bölüm 2',
+  title:'İnsan İnancında Gelgitler',
+  body:`
+    <div class="div-section">Bölüm 2</div>
+    <h1>İnsan İnancında <em style="color:var(--gold);font-style:italic;">Gelgitler</em></h1>
+    <div class="div-deco"></div>
+    <div class="div-subtitle">Psikolojiden Sosyolojiye Geçiş — İbn Haldun'la Toplumun Yapısına İniş</div>
+  `
+},
+
+/* ---------- 7. TEZIN TEORIK CERCEVESI ---------- */
+{
+  type:'split',
+  section:'Bölüm 2',
+  title:'Tezin Teorik Çerçevesi — Üç Önerme',
+  image:'04_ibn_khaldun.jpg',
+  imageCaption:'İbn Haldun (1332–1406) — Mukaddime',
+  body:`
+    <div class="items-list">
+      <div class="item-row"><span class="step-num">1</span><div class="item-text"><strong>İki Kutuplu Gerilim:</strong> Müslüman toplum — kırsal/kabile (asabiyye, hareketlilik) ile kentsel/Kitap kültürü (uzmanlaşma, teoloji) arasındaki <span class="text-gold">dinamik gerilim</span>.</div></div>
+      <div class="item-row"><span class="step-num">2</span><div class="item-text"><strong>Kitap'ın Kutsallaştırılması:</strong> İki kutbu birbirine bağlayan halka. Kabileler Kitap dinine bağlanınca kentli uzmanlığın müşterisi; kentliler kabile gücüne muhtaç.</div></div>
+      <div class="item-row"><span class="step-num">3</span><div class="item-text"><strong>Kırılgan ama Homojen:</strong> Karşılıklı bağımlılık, siyasal olarak son derece kırılgan bir toplumun neden kültürel olarak çok uyumlu olduğunu açıklar.</div></div>
+    </div>
+    <div class="footer-note">Yöntemsel özgünlük: Gellner İbn Haldun'u <em>İslam filozofu</em> olarak değil <strong>modern sosyolojinin öncüsü</strong> olarak okur — Hume, Platon, Hobbes ile karşılaştırır.</div>
+  `
+},
+
+/* ---------- 8. HUME PSIKOLOJIK MODEL ---------- */
+{
+  type:'std',
+  section:'Bölüm 2',
+  title:'Hume\'un Psikolojik Modeli ve Sınırları',
+  body:`
+    <div class="quote-banner">Hume paradoksal biçimde şunu öne sürer: çoğulculuk (pagan çoksesliliği), uygun koşullarda <em>hoşgörüyü</em> mümkün kılabilir.</div>
+    <div class="two-col">
+      <div class="card brown">
+        <h3>Hume'un Modeli</h3>
+        <p><strong>Psikolojiktir</strong> — dini inançları bireysel duygulardan (korku, umut, hayret) türetir. İnsanlar tektanrıcılığı bile yanlış nedenlerle benimser: korkudan, mutlak güce teslimiyetten.</p>
+      </div>
+      <div class="card teal">
+        <h3>Gellner'in Eleştirisi</h3>
+        <p>Hume bu duyguları <strong>üreten toplumsal yapıyı</strong> analiz etmez. Bu nedenle psikolojiden sosyolojiye geçmek gerekir.</p>
+      </div>
+    </div>
+    <div class="key-formula">"Hume'un modelini Müslüman toplum bağlamında denemek istersek, büyük İslam sosyoloğu İBN HALDUN ile başlamak gerekir."</div>
+    <div class="footer-note">Bu cümle, bölümün metodolojik dönüm noktasıdır — psikolojiden sosyolojiye geçiş.</div>
+  `
+},
+
+/* ---------- 9. IBN HALDUN TRAJIK IKILEM ---------- */
+{
+  type:'std',
+  section:'Bölüm 2',
+  title:'İbn Haldun ve "Trajik İkilem"',
+  body:`
+    <div class="quote-banner">İbn Haldun'da çok daha trajik bir biçim alır: siyasal, toplumsal ve yurttaşlık erdemleri <em>dinsel çoğulculukla değil, kabile yaşamıyla</em> teşvik edilir.</div>
+    <table class="comp-table">
+      <thead><tr><th></th><th class="col-brown">Platon</th><th class="col-teal">İbn Haldun</th></tr></thead>
+      <tbody>
+        <tr><td>Uygarlık-öncesi toplum</td><td class="col-brown">Savaşa ihtiyaç duymaz; imrenilmeyecek kadar yoksuldur.</td><td class="col-teal">Yoksulluk zayıflığın güvencesi değildir; kabile yaşamak için savaşmak zorundadır.</td></tr>
+        <tr><td>Uzmanlaşma</td><td class="col-brown">İş bölümüne diretir.</td><td class="col-teal">Toplumsal bağlılığı ve askeri ruhu zayıflatır.</td></tr>
+        <tr><td>Yöntemi</td><td class="col-brown">Kural koyucu siyasal filozof.</td><td class="col-teal">Pozitif tanımlayıcı sosyolog. Toplumu bulduğu gibi kabul eder.</td></tr>
+      </tbody>
+    </table>
+    <div class="key-formula">İbn Haldun reçete yazmaz, yapıyı teşhir eder.</div>
+  `
+},
+
+/* ---------- 10. BEDEVI USTUNLUGU ---------- */
+{
+  type:'split',
+  section:'Bölüm 2',
+  title:'Bedevi Üstünlüğü ve Tocqueville',
+  image:'05_bedouin_camp.jpg',
+  imageCaption:'Cezayir kabilesi: kendi şeyhini seçer, meselesini tartışır',
+  body:`
+    <div class="quote-banner">Bedevi yerleşik halktan daha beceriklidir, daha cesaretlidir. Bunun nedeni yerleşik halkın <em>kolaya ve tembelliğe</em> alışmış olmasıdır.<small>— İbn Haldun, Mukaddime</small></div>
+    <div class="quote-banner">Bu küçük toplulukların her biri şeyh dedikleri kendi şeflerini seçerler ve kendi meselelerini birlikte tartışırlar.<small>— Tocqueville, Cezayir üzerine, beş yüzyıl sonra</small></div>
+    <div class="key-formula">Bir yandan KIRSAL ÇEVRE, öte yandan KİTABA SAYGI — sınırlarına itilmiş ama bir bakıma kaynaşmış iki unsur.</div>
+    <div class="footer-note">İbn Haldun'un dünyası = geleneksel Müslüman uygarlığı = kırsal çevre + (çoğu kez vekaleten) kitabi anlayış.</div>
+  `
+},
+
+/* ---------- 11. DUZEN UC ASAMA ---------- */
+{
+  type:'std',
+  section:'Bölüm 2',
+  title:'Toplumsal Düzenin Üç Aşaması — Kitabın Kutsanması',
+  body:`
+    <div class="items-list">
+      <div class="item-row"><span class="step-num">1</span><div class="item-text"><strong>Soyutlanmış Kavramı Kutsama:</strong> Kitabın kendisi kutsaldır.</div></div>
+      <div class="item-row"><span class="step-num">2</span><div class="item-text"><strong>Tanrı'ya Düstur Atfı:</strong> Tanrı, sınırlı ve somut bir Kitap-Düstur verir.</div></div>
+      <div class="item-row"><span class="step-num">3</span><div class="item-text"><strong>Kitap + Eğitimli Elit:</strong> Kitap, sürekli yetiştirilen bir elit (ulema, devşirme) tarafından korunur.</div></div>
+    </div>
+    <div class="key-formula">İSLAM, KİTABI TANRI'YA ATFETTİ.</div>
+    <div class="quote-banner center">Tamamlanmış peygamberler silsilesi bu mantıksal-felsefi gerekliliği yerine getirir: normatif gerçeğe yapılacak ilaveler ne mümkündür ne de izin verilir.</div>
+  `
+},
+
+/* ---------- 12. HZ MUHAMMED MEMLUKLER ---------- */
+{
+  type:'split',
+  section:'Bölüm 2',
+  title:'Hz. Muhammed, Memlukler ve Türkler',
+  image:'06_mamluk_devshirme.jpg',
+  imageCaption:'Akrabalık bağından koparılmış, Kitap\'a bağlanmış elit',
+  body:`
+    <div class="quote-banner">Hz. Muhammed bütün bir topluma kitaba saygıyı öğreterek Platonculuğu tamamladıysa, Memlukler ve Türkler işi <em>Gardiyanları sistemli bir şekilde eğiterek ve ayartıcı akrabalık bağlarından soyutlayarak</em> daha ileri götürdüler.</div>
+    <div class="cards-2">
+      <div class="card brown">
+        <h3>Avrupa Modeli</h3>
+        <p>Krallar Völkerwanderung sonrası, kabile liderlerinden değil <strong>baronlardan</strong> seçildi. İktidar = arazi mülkiyeti.</p>
+      </div>
+      <div class="card teal">
+        <h3>İslam Modeli</h3>
+        <p>Yöneticiler kabileleri dinsel bayrak altında kaynaştıran <strong>dinsel kişilerden ya da kabile şeflerinden</strong> seçildi. İktidar = dinsel meşruiyet + asabiyye.</p>
+      </div>
+    </div>
+    <div class="quote-banner">Doğal düzen bir gerçektir, ama bireysel bir gerçek değildir. Düzenin sürdürülmesi <em>silahlı halkın kendi elindedir</em>.<small>— Gellner, Hobbes'a karşı</small></div>
+    <div class="footer-note">Hobbes-Locke-Rousseau çıkış noktası reddediliyor: doğal durum asla bireyler arası soyut sözleşme değildi — insan daima akraba grup içindedir.</div>
+  `
+},
+
+/* ---------- 13. PAZAR-KALE-CAMI ---------- */
+{
+  type:'split',
+  section:'Bölüm 2',
+  title:'Liderlik, Üstünlük ve Asabiyye',
+  image:'07_market_fort_mosque.jpg',
+  imageCaption:'Pazar — Kale — Cami: siyasal sistemin üçlüsü',
+  body:`
+    <div class="quote-banner">Hükmetme, otorite, toplumsal bağlılığın ödülleridir. Yönetim kabile hakkı içindir ve <em>yalnızca bağlılık ancak kabile içinde doğar</em>.</div>
+    <div class="key-formula">Devlet bir bakıma bozkırdan kaleye taşınan, sürüleri yerine kenti sağan ve camileri koruyan bir KABİLEDİR.</div>
+    <div class="three-fan">
+      <div class="card gold center" style="text-align:center;"><h3>PAZAR</h3><p style="font-size:14px;">Ekonomik mübadele</p></div>
+      <div class="fan-arrow">+</div>
+      <div class="card gold center" style="text-align:center;"><h3>KALE</h3><p style="font-size:14px;">Siyasal otorite</p></div>
+    </div>
+    <div style="display:flex;justify-content:center;margin-top:14px;">
+      <div class="card center-dark" style="text-align:center;max-width:280px;"><h3>+ CAMİ</h3><p style="font-size:14px;">Dinsel meşruiyet</p></div>
+    </div>
+    <div class="footer-note">Bu üçlü, İbn Haldun'un siyasal sistem analizinin omurgasıdır.</div>
+  `
+},
+
+/* ---------- 14. EGITIM HADIM EDER ---------- */
+{
+  type:'std',
+  section:'Bölüm 2',
+  title:'Eğitim Hadım Eder Tezi',
+  body:`
+    <div class="quote-banner center">Platon'un düşündüğü ya da tavsiye ettiği gibi insanı otorite için uygun hale getiren <em>sağlam bir felsefi eğitim değildir. Tam tersidir.</em></div>
+    <div class="key-formula">EĞİTİM İNSANI SİYASAL OLARAK HADIM EDER.</div>
+    <p style="font-size:clamp(15px,1.4vw,18px);line-height:1.55;color:var(--muted);text-align:center;margin:14px auto;max-width:780px;">Eğitim ve yasaya itaatkârlık siyasal olarak güçsüzleştirir; otoriteyi ihsan eden yegâne unsur olan <strong style="color:var(--gold-light);">toplumsal bağlılığın altını oyar</strong>.</p>
+    <div class="card center-dark" style="margin-top:14px;">
+      <h3>Hz. Muhammed İstisnası</h3>
+      <p>İbn Haldun'u "biraz utandıran" nokta. Mazereti: Hz. Muhammed'in etrafındakilere yasalar <em>sözlü</em> olarak Peygamber kanalıyla geldi — teknik bilgi sonucu değildi. Sarsılmazlıkları olduğu gibi kaldı; eğitim ya da otoriteyle aşındırılmadı.</p>
+    </div>
+  `
+},
+
+/* ---------- 15. GRUP DUYGUSU KAN ---------- */
+{
+  type:'std',
+  section:'Bölüm 2',
+  title:'Grup Duygusu Yalnızca Kandan Doğar',
+  body:`
+    <div class="cards-2">
+      <div class="card teal">
+        <h3>Önerme 1</h3>
+        <p style="font-size:clamp(15px,1.5vw,19px);font-style:italic;font-family:'Playfair Display';">Sadece grup duygusuyla bir araya gelen kabileler çölde yaşayabilir.</p>
+      </div>
+      <div class="card teal">
+        <h3>Önerme 2</h3>
+        <p style="font-size:clamp(15px,1.5vw,19px);font-style:italic;font-family:'Playfair Display';">Grup duygusu sadece kan ilişkisinden ya da ona tekabül eden bir şeyden gelir.</p>
+      </div>
+    </div>
+    <div class="quote-banner center"><strong>'Kan'</strong> bağlılığın ne gerekli ne de yeterli koşuludur — yalnızca <em>bir konuşma konusudur</em>.</div>
+    <div class="footer-note">Bağlılık yasaya dayalı devletten değil, sert çevrede yaşayan ve kan tasavvurlarına tabi gruplardan doğar — yalnızca <span class="text-gold">kabileler içinde</span>.</div>
+  `
+},
+
+/* ---------- 16. SAHTE SECERELER ---------- */
+{
+  type:'std',
+  section:'Bölüm 2',
+  title:'Sahte Şecereler ve "Gerçek Cemaat"',
+  body:`
+    <div class="quote-banner">Bir cemaatleri olduğunu ileri sürmek <em>aldatıcı</em> bir iddiadır. Kökenleri "soylu Arap ya da Arap olmayan cemaatte" bulunan kent sakinlerinin çoğu bu tür hülyaları paylaşır.</div>
+    <div class="items-list">
+      <div class="item-row"><span class="step-num">✓</span><div class="item-text"><strong>Gerçek bir cemaat</strong> kendi savunmasını gözetir.</div></div>
+      <div class="item-row"><span class="step-num">✗</span><div class="item-text">Gerçek bir cemaati olmayan şecereler <strong>tamamen laf kalabalığıdır</strong>.</div></div>
+      <div class="item-row"><span class="step-num">⚠</span><div class="item-text"><strong>Yasaya itaat</strong> siyasal hadımlıktır.</div></div>
+    </div>
+    <div class="footer-note">İbn Haldun'un kriteri: kanın <em>genetik gerçekliği</em> değil, kan duygusunun <span class="text-gold">toplumsal etkinliği</span>.</div>
+  `
+},
+
+/* ---------- BÖLÜM 3 DIVIDER ---------- */
+{
+  type:'divider',
+  section:'Bölüm 3',
+  title:'Sistematik Bir Toplum Modeline Doğru',
+  body:`
+    <div class="div-section">Bölüm 3</div>
+    <h1>Sistematik Bir <em style="color:var(--gold);font-style:italic;">Toplum Modeline</em> Doğru</h1>
+    <div class="div-deco"></div>
+    <div class="div-subtitle">Bölüm 1 ve 2'de kurulan kabile-kent gerilimi, burada sistematik bir toplum modeline dönüştürülüyor.</div>
+  `
+},
+
+/* ---------- 17. DÖRT BAĞLANTILI TEZ ---------- */
+{
+  type:'std',
+  section:'Bölüm 3',
+  title:'Gellner\'in Dört Bağlantılı Tezi',
+  body:`
+    <div class="cards-4">
+      <div class="card teal">
+        <h3>Tez 1 — Dengeli Parçalılık</h3>
+        <p>Kabile toplumu devletsiz bir düzen üretebilir: yazısız hukuk, kan davası, ortak yemin, mevsimsel paylaşım.</p>
+      </div>
+      <div class="card gold">
+        <h3>Tez 2 — İki Dindarlık Üslubu</h3>
+        <p>Kentli: üniteryen, kitabî, hukukçu. Kabile: ritüel-merkezli, vecd, kutsal kişi, tarikat. İslam ikisini bir arada.</p>
+      </div>
+      <div class="card brown">
+        <h3>Tez 3 — Kilise-Karşıtı Yapı</h3>
+        <p>Hıristiyanlıkta kilise üst-devlet gibidir; İslam'da ulema merkezsiz ve parçalı. <strong>Kilisesiz teokrasi</strong>.</p>
+      </div>
+      <div class="card center-dark">
+        <h3>Tez 4 — Sarkaç Kırılır</h3>
+        <p>Sömürgecilik + ulus-devlet + kentleşme: kabile-kent döngüsü işlemez olur. Ya militan İslam ya didaktik sekülerizm.</p>
+      </div>
+    </div>
+    <div class="footer-note">Müslüman toplumun siyasal kırılganlığı ama kültürel homojenliği <span class="text-gold">kent–kabile–Kitap üçgeninin karmaşık salınımındadır</span>.</div>
+  `
+},
+
+/* ---------- 18. ÜÇLÜ TIPOLOJI ---------- */
+{
+  type:'split',
+  section:'Bölüm 3',
+  title:'Üçlü Kabile Tipolojisi — Platon\'un İslamî Versiyonu',
+  image:'08_wolves_dogs_sheep.jpg',
+  imageCaption:'Kurtlar · Çoban köpekleri · Koyunlar',
+  body:`
+    <div class="cards-3">
+      <div class="card brown">
+        <h3>🐺 KURTLAR</h3>
+        <p>Otoriteyi reddeden, silahlı, savunmacı kabileler.</p>
+      </div>
+      <div class="card gold">
+        <h3>🐕 ÇOBAN KÖPEKLERİ</h3>
+        <p>Kentleri ve yerleşik bölgeleri ele geçirerek saltanata ulaşabilen kabileler.</p>
+      </div>
+      <div class="card">
+        <h3>🐑 KOYUNLAR</h3>
+        <p>Otoriteye boyun eğen, itaat alışkanlıkları yüzünden karakterini kaybeden kabileler.</p>
+      </div>
+    </div>
+    <div class="quote-banner">Yönetim, kendisine bağlı kabilelerle, çoban köpekleriyle, eski kurtlarla, kurttan-dönen çoban köpekleriyle mümkündür ve kentler ve koyunlar üzerinde uygulanır. <em>Halkın halk tarafından ve halk için yönetimi saçmadır.</em></div>
+    <div class="footer-note">İbn Haldun'un örtük demokrasi eleştirisi: demokratik söylem ancak himaye şebekelerinin gizlendiği "totaliter demokrasi"de mümkündür.</div>
+  `
+},
+
+/* ---------- 19. TICARET DONGUSU ---------- */
+{
+  type:'std',
+  section:'Bölüm 3',
+  title:'Ticaret Döngüsü ve Parçalı Toplum',
+  body:`
+    <div class="quote-banner">İbn Haldun, vergilendirmenin <em>bir Keynesçi toplam talep desteklenmesiyle</em> sınırlanmasını ve ötesini piyasaya bırakması gerektiğini savunuyor.<small>— Altı yüzyıl önce</small></div>
+    <div class="two-col">
+      <div class="card gold">
+        <h3>Keynesçi İbn Haldun</h3>
+        <p>Siyasal çöküş yalnızca ahlaki bir kokuşma değil, <strong>sermaye tedarikindeki krizle</strong> başlayan bir ekonomik çöküştür.</p>
+      </div>
+      <div class="card teal">
+        <h3>Parçalı Toplum (Segmentary)</h3>
+        <p>Evans-Pritchard'dan ödünç. Düzen, merkezi yaptırımcı olmadan: her düzeydeki gruplar benzer-komşu gruplarla dengelenir. Dış tehditte birleşirler, yokken parçalanırlar.</p>
+      </div>
+    </div>
+    <div class="key-formula">Düzen, yasa ve düzen yaptırımcısı merkezi bir aracı OLMADAN nasıl sürdürülür?</div>
+  `
+},
+
+/* ---------- 20. IKI DINDARLIK USLUBU ---------- */
+{
+  type:'std',
+  section:'Bölüm 3',
+  title:'İki Dindarlık Üslubu + Sünni-Şii Farkı',
+  body:`
+    <table class="comp-table">
+      <thead><tr><th></th><th class="col-teal">Kentli Dindarlık</th><th class="col-brown">Kabile Dindarlığı</th></tr></thead>
+      <tbody>
+        <tr><td>Karakter</td><td class="col-teal">Ağırbaşlı, üniteryen, ticari uğraşlarla uyumlu</td><td class="col-brown">Vecd, heyecan, yüreklendirilme</td></tr>
+        <tr><td>Pratikler</td><td class="col-teal">Kitap merkezli, fıkıh, kelâm</td><td class="col-brown">Müzik, dans, esrime, cezp, mistik durumlar</td></tr>
+        <tr><td>İhtiyaç</td><td class="col-teal">Müşkülpesentlik kentli avamdan ayırır</td><td class="col-brown">Teselli, kurtuluş, alimane kesinlikten önce duygu</td></tr>
+      </tbody>
+    </table>
+    <div class="cards-2" style="margin-top:14px;">
+      <div class="card brown">
+        <h3>Hristiyan Şehitliği</h3>
+        <p>Hristiyan olmayanların işlediği bir günahın simgesi. Azınlıkları dışlama potansiyeli.</p>
+      </div>
+      <div class="card teal">
+        <h3>Şii Şehitliği</h3>
+        <p>Müslüman yöneticilerin işlediği bir günahın simgesi. <strong>İç-Müslüman yönetimin meşruiyetini sorgulama</strong> potansiyeli.</p>
+      </div>
+    </div>
+    <div class="footer-note"><span class="text-gold">Sünnilikte "kilise" yoktur:</span> Okültasyon, okuryazar toplulukları kendi düzenlemeleriyle meşgul olmaya cesaretlendirdi → kentli kendini-yönetme kapasitesi.</div>
+  `
+},
+
+/* ---------- 21. KABILE SOFULAR / VAHABI ---------- */
+{
+  type:'split',
+  section:'Bölüm 3',
+  title:'Kabile Sofuları — Normal Din vs. Devrimci Din',
+  image:'09_najd_wahhabi.jpg',
+  imageCaption:'Necd Çölü, 1744 — İbn Suud + Abdülvahhab ittifakı',
+  body:`
+    <div class="quote-banner">Kutsal kitaba dayalılık günümüzde <em>iki düşman arasında</em> kalmıştır: kayıtsız, yazı-öncesi kabile mensupları ile şüpheciliğe ulaşacak düzeyde okuryazar modern kentliler.</div>
+    <table class="comp-table">
+      <thead><tr><th></th><th class="col-teal">Normal Din</th><th class="col-brown">Devrimci Din</th></tr></thead>
+      <tbody>
+        <tr><td>Tipik</td><td class="col-teal">Derviş / murabıt dini</td><td class="col-brown">Şeriat ve kitaba dayalı pür ahlakçılık</td></tr>
+        <tr><td>İşlev</td><td class="col-teal">Mevsim ve grup-sınırı belirleyen şenlikler</td><td class="col-brown">Kabileleri aşan birleşmeleri mümkün kılar</td></tr>
+        <tr><td>Tetikleyici</td><td class="col-teal">Sürekli (Durkheim'cı tanım)</td><td class="col-brown">Yabancı istila, kapsayıcı lider gereksinimi</td></tr>
+      </tbody>
+    </table>
+    <div class="footer-note">Vahabi hareketi (1744): kabile <em>kendisi de reformcu olabilir</em> — Kuhn'un "normal bilim / devrimci bilim" paralelinde.</div>
+  `
+},
+
+/* ---------- 22. KILISE VE DEVLET ---------- */
+{
+  type:'std',
+  section:'Bölüm 3',
+  title:'Kilise ve Devlet — Tersine Yapılanma',
+  body:`
+    <table class="comp-table">
+      <thead><tr><th></th><th class="col-brown">Hristiyan</th><th class="col-teal">Müslüman</th></tr></thead>
+      <tbody>
+        <tr><td>Resmi din</td><td class="col-brown">Hiyerarşik, merkezi kilise. Üst-devlet gibi davranır.</td><td class="col-teal">Kentli ulema. Resmi liderlikten ve örgütlenmeden uzak.</td></tr>
+        <tr><td>Marjinal akımlar</td><td class="col-brown">Mezhepler — eşitlikçi.</td><td class="col-teal">Tarikatlar — parçalı, hiyerarşik, ritüele dayalı.</td></tr>
+        <tr><td>Sonuç</td><td class="col-brown">Hiyerarşi üreten kutsallık.</td><td class="col-teal">Hiyerarşi üretmeyen kutsallık. Eşitliğin yolunu açtı.</td></tr>
+      </tbody>
+    </table>
+    <div class="key-formula">İslam, Hristiyanlığın aksine, HİYERARŞİ ÜRETMEYEN BİR KUTSALLIK üretebilmiştir.</div>
+  `
+},
+
+/* ---------- 23. MODERNLESME SARKAC KIRILIR ---------- */
+{
+  type:'split',
+  section:'Bölüm 3',
+  title:'Modernleşme — Sarkacın Kırılması',
+  image:'10_colonial_algeria.jpg',
+  imageCaption:'Sömürge Cezayir: yeni bir kentli yoksul sınıf doğuyor',
+  body:`
+    <div class="quote-banner">Geleneksel devlet kentlerden korkmadı; <em>kolonici devlet ise kabilelerden korktu.</em></div>
+    <div class="cards-2">
+      <div class="card brown">
+        <h3>Kemalist Paradoks</h3>
+        <p>Kemalist yenilikçilerin ilk kuşağı sekülerizmi <strong>farkında olmadan Kur'an'a ait, muhafazakâr ve uzlaşmaz bir ruhla</strong> kucakladılar. Profesörler basın aracılığıyla siyasal darbeyi haklı çıkaran <em>seküler fetvalar</em> yayımladılar.</p>
+      </div>
+      <div class="card gold">
+        <h3>Reformcu İslam</h3>
+        <p>Sarkacın bozulmasına Kemalizm'le aynı tepki: ritüel ve kırsal halk dindarlığı reddedilir; kitabî, ahlakçı, üniteryen.</p>
+      </div>
+    </div>
+    <div class="footer-note">Laiklik <span class="text-gold">İslamî bir içerik taşıyan söylemsel form</span> alabilir — didaktik laiklik Kur'ancı bir tarza bürünebilir.</div>
+  `
+},
+
+/* ---------- 24. FARKLI YOLLAR ---------- */
+{
+  type:'std',
+  section:'Bölüm 3',
+  title:'Farklı Yollar — Modern Müslüman Dünyanın Güzergahları',
+  body:`
+    <div class="cards-3">
+      <div class="card brown">
+        <h3>🇸🇴 Somali</h3>
+        <p>Kabile kimliğini yasakladı.</p>
+      </div>
+      <div class="card brown">
+        <h3>🇱🇾 Kaddafi Libyası</h3>
+        <p>Kur'an'la çelişen gelenekleri geçersiz ilan etti; takvimi hicret yerine Peygamber'in ölümüne göre değiştirdi.</p>
+      </div>
+      <div class="card brown">
+        <h3>🇪🇬 Sedat Mısır</h3>
+        <p>Kırsal popülizm izleri var ama "fellah" hâlâ küfür kelimesi — Batı popülizminden farklı.</p>
+      </div>
+    </div>
+    <div class="cards-2" style="margin-top:12px;">
+      <div class="card center-dark">
+        <h3>🇮🇷 İran (Humeyni, 1979)</h3>
+        <p>"Sınıf çatışması ancak kendisini etnik ya da dinsel terimlerle kavramsallaştırabildiğinde devrime nüfuz edebilir." Tahran'da: <em>yoksulların Müslüman olduğu söylendi.</em></p>
+      </div>
+      <div class="card teal">
+        <h3>Neo-Memluk Rejimleri</h3>
+        <p>Modern Arap askeri rejimleri İbn Haldun'un değil <strong>Platon'un şemasına</strong> yerleşir: kabile temelinden soyutlanmış teknokratik elit.</p>
+      </div>
+    </div>
+    <div class="footer-note">"Modernizm vs. Popülizm" gerilimi — reformcu İslam tam bu gerilimin çözümü olarak konumlanır.</div>
+  `
+},
+
+/* ---------- 25. KORKUNC TURKLER ---------- */
+{
+  type:'split',
+  section:'Bölüm 3',
+  title:'"Korkunç Türkler" — En Büyük İstisna',
+  image:'11_ottoman_court.jpg',
+  imageCaption:'Daire-i Adliye — Adalet Dairesi',
+  body:`
+    <div class="quote-banner">İstikrarlı, güçlü, uzun ömürlüydü ve tek başına Müslüman değildi. Türkler kabile temelinden soyutlanarak <em>sistemli eğitimle biçimlenmiş bir yönetici elit</em> ürettiler.</div>
+    <div class="card center-dark">
+      <h3>Adalet Dairesi (15. yy)</h3>
+      <p>Kullar ancak hukuk ve düzen varsa servet biriktirebilirdi. Bunları yalnızca <strong>devlet</strong> sağlayabilirdi. Ama devletin yaşaması için <strong>paraya</strong> ihtiyaç vardır...</p>
+    </div>
+    <div class="key-formula">Devlet kentin yağmalanmasına engel olacak kadar güçlü olduğundan, KABİLE TİCARETE ZORLANIR.</div>
+    <div class="footer-note">Osmanlı başarısının sırrı: <span class="text-gold">kabile gücünü devlet tekeline alıp ticarete kanalize etmek</span>. İbn Haldun'un "ya kabile ya bürokrasi" ikileminden farklı, üçüncü bir yol.</div>
+  `
+},
+
+/* ---------- 26. SOSYOLOJIK MUCIZE ---------- */
+{
+  type:'std',
+  section:'Bölüm 3',
+  title:'Ticaret, Kent ve İtidal — Sosyolojik Mucize',
+  body:`
+    <div class="quote-banner center">Bütün bu birlik ve etki <em>herhangi bir zorlama aracı, bir baş, resmi hiyerarşi, merkezi sekretarya olmadan</em>... güvenceye alınır. Bu sosyolojik mucizeye İnanç gerçeğinin kanıtı olarak çok daha kesin biçimde müracaat edilmemesi şaşırtıcıdır.</div>
+    <div class="cards-3" style="margin-top:14px;">
+      <div class="card teal">
+        <h3>Hac</h3>
+        <p>Mekke'nin merkezi konumu — Fas'tan Endonezya'ya bağlayan halka.</p>
+      </div>
+      <div class="card teal">
+        <h3>Mesajın Eşsizliği</h3>
+        <p>Irk-ötesi, evrensel; yerel kültürlere uyarlanabilir ama özden taviz vermeden.</p>
+      </div>
+      <div class="card teal">
+        <h3>Parçalı Yapı</h3>
+        <p>Kabile ve ulema birbirini dengeler — aşırılık her iki yönde de düzeltilir. <strong>Fren-denge mekanizması.</strong></p>
+      </div>
+    </div>
+    <div class="footer-note">Gellner'in dindar olmayan yanıtı: İslam'ın sosyolojik mimarisi, merkezi otorite olmadan homojenliği güvenceye alabilen bir <span class="text-gold">öz-düzenlenir sistem</span> üretti.</div>
+  `
+},
+
+/* ---------- BÖLÜM 4 DIVIDER ---------- */
+{
+  type:'divider',
+  section:'Bölüm 4',
+  title:'Modelin Savunması ve Durkheim',
+  body:`
+    <div class="div-section">Bölüm 4</div>
+    <h1>Modelin Savunması ve <em style="color:var(--gold);font-style:italic;">Durkheim'la Karşılaşma</em></h1>
+    <div class="div-deco"></div>
+    <div class="div-subtitle">İbn Haldun modeli çürüyecek mi? Ve büyük soru: insanları toplumda bir arada tutan nedir?</div>
+  `
+},
+
+/* ---------- 27. UC TEZ ---------- */
+{
+  type:'std',
+  section:'Bölüm 4',
+  title:'Bölümün Üç Tezi',
+  body:`
+    <div class="cards-3">
+      <div class="card teal">
+        <h3>Tez 1 — Modelin Savunması</h3>
+        <p>"İstisnalar" (Osmanlı, Memluk, evliyasız göçebeler) modeli çürütmez. <strong>İbn Haldun = temel; diğerleri = varyasyon.</strong> Eski biçimler ancak modern koşullarda buharlaşır.</p>
+      </div>
+      <div class="card gold">
+        <h3>Tez 2 — Karşıt Karşılaşma</h3>
+        <p>İbn Haldun: bağlılık yalnızca kabile'de. Durkheim: iş bölümü <strong>yeni bir ahlaki bağ üretir</strong>. <em>İki bitki aynı toprakta yetişmez.</em></p>
+      </div>
+      <div class="card brown">
+        <h3>Tez 3 — Trajik Bedel</h3>
+        <p>Geleneksel çoğulculuktan modern homojenliğe geçiş <strong>korkunç bedellere</strong> yol açabilir. Modern gruplar bile kabile-tarzı kan davası mantığıyla çatışır.</p>
+      </div>
+    </div>
+  `
+},
+
+/* ---------- 28. CÖL SOFULUGU ---------- */
+{
+  type:'std',
+  section:'Bölüm 4',
+  title:'Modele İtiraz — "Çöl Sofuluğu" ve İbadilik',
+  body:`
+    <div class="quote-banner">Çölde olsa yapacak başka bir şey olmadığından kendisinin de bir sofu olacağını düşünen kentli bir alim için mantıklı görünmektedir. <em>"Çölde-ne-hissederdim" biçimindeki tartışmalar en azından Herder'e geri döner.</em></div>
+    <div class="cards-2">
+      <div class="card brown">
+        <h3>"Çöl Sofuluğu" Tezi</h3>
+        <p>Bazı araştırmacılar göçebe sofuluğunun farklı bir tip olduğunu iddia eder.</p>
+      </div>
+      <div class="card teal">
+        <h3>Gellner'in Yanıtı</h3>
+        <p>Saf bir kentli projeksiyonu — saha verisi değil, <strong>edebi bir fantezi</strong>. Vahabiler yerleşik tabandan; Fulanilerin liderliği başka yerden; Umman İbadiliği <em>kabile yapısı içinde</em> kurumsallaştı.</p>
+      </div>
+    </div>
+    <div class="footer-note">Osmanlı itirazı "çok daha ciddi" — çözüm: en az iki ayrı tip geleneksel İslam (İbn Haldun + Osmanlı). İbn Haldun modeli <span class="text-gold">bastırılabilir ama yok edilemez bir zemin</span>.</div>
+  `
+},
+
+/* ---------- 29. IBN HALDUN VS DURKHEIM ---------- */
+{
+  type:'std',
+  section:'Bölüm 4',
+  title:'İbn Haldun ile Durkheim Karşı Karşıya',
+  body:`
+    <table class="comp-table">
+      <thead><tr><th></th><th class="col-brown">İbn Haldun</th><th class="col-teal">Durkheim</th></tr></thead>
+      <tbody>
+        <tr><td>Bağlılık nerede?</td><td class="col-brown">Yalnızca kabile (parçalı) toplumda.</td><td class="col-teal">İki formda: mekanik (benzerlik) + organik (iş bölümü).</td></tr>
+        <tr><td>İş bölümünün etkisi</td><td class="col-brown">Bağlılığı yok eder. Uzmanlaşma toplumsal bağı bozar.</td><td class="col-teal">Yeni ve daha yüksek bir ahlaki bağın zeminidir.</td></tr>
+        <tr><td>Kentli akrabalık iddiası</td><td class="col-brown">Kalpazanlıktır. Toplumsal etkinliği yoktur.</td><td class="col-teal">Sorunsuz — modern toplum kendi bağ türünü üretir.</td></tr>
+        <tr><td>Modern toplum</td><td class="col-brown">Uygarlık ve bağlılık aynı toprakta yetişmez.</td><td class="col-teal">Organik dayanışma modern toplumun başarısıdır.</td></tr>
+      </tbody>
+    </table>
+    <div class="footer-note">İbn Haldun için kriter <span class="text-gold">kanın genetik gerçekliği değil, kan duygusunun toplumsal etkinliğidir</span>.</div>
+  `
+},
+
+/* ---------- 30. ENDUSTRIYEL TOPLUM ---------- */
+{
+  type:'std',
+  section:'Bölüm 4',
+  title:'Endüstriyel Toplum ve Milliyetçiliğin Doğuşu',
+  body:`
+    <div class="quote-banner">İnsanlar genel olarak kendi toplumlarını ve kültürlerini <em>havadan gelmiş gibi</em> görürler. — İbn Haldun da kendi toplumunu "tek toplum türü" olarak gördü.</div>
+    <div class="cards-3">
+      <div class="card gold">
+        <h3>İş Sürekli Değişir</h3>
+        <p>Kişi ömrü boyunca birkaç kez meslek değiştirir; uzmanlık artık gruba ait değil bireysel bir yetenek.</p>
+      </div>
+      <div class="card gold">
+        <h3>Çok Yönlü Eğitim</h3>
+        <p>Teknoloji asgari teknik ve kültürel eğitim gerektirir — <strong>standartlaştırılmış, evrensel</strong>.</p>
+      </div>
+      <div class="card gold">
+        <h3>Ortak Lehçe Zorunlu</h3>
+        <p>Kültürel homojenlik ekonomik bir zorunluluktur, kültürel bir tercih değil.</p>
+      </div>
+    </div>
+    <div class="key-formula">MERKEZİ EĞİTİM SİSTEMİ → Ortak Dil → Milli Kimlik. Milliyetçilik bir rastlantı değil, sosyolojik bir ZORUNLULUKTUR.</div>
+  `
+},
+
+/* ---------- 31. TUNUS DUSTURU ---------- */
+{
+  type:'std',
+  section:'Bölüm 4',
+  title:'Tunus Düsturu — Modern Bağlılık ve Üç Hafıza',
+  body:`
+    <div class="cards-3">
+      <div class="card brown">
+        <h3>1871 sonrası Fransa</h3>
+        <p style="font-family:'Playfair Display';font-style:italic;">Toujours y penser, jamais en parler.</p>
+        <p style="margin-top:6px;">Daima hatırla, asla konuşma.</p>
+      </div>
+      <div class="card brown">
+        <h3>1945 sonrası Batı Almanya</h3>
+        <p style="font-family:'Playfair Display';font-style:italic;">Toujours en parler, jamais y penser.</p>
+        <p style="margin-top:6px;">Daima konuş, asla hatırlama.</p>
+      </div>
+      <div class="card gold">
+        <h3>Tunus</h3>
+        <p style="font-family:'Playfair Display';font-style:italic;">Y penser et en parler un peu, mais pas trop.</p>
+        <p style="margin-top:6px;">Biraz düşün, biraz konuş, ama haddinden fazla değil.</p>
+      </div>
+    </div>
+    <div class="footer-note">Tunus düsturu Gellner'in modern Müslüman kimlik yönetimine dair en ince gözlemlerinden biri: <span class="text-gold">ne inkâr, ne saplantı — yönetilebilir bir hafıza</span>.</div>
+  `
+},
+
+/* ---------- 32. MODERN TRAJEDI ---------- */
+{
+  type:'split',
+  section:'Bölüm 4',
+  title:'Ulus Olmanın Bedeli — Modern Trajedi',
+  image:'12_modern_tragedy.jpg',
+  imageCaption:'İrlanda · Kıbrıs · Anadolu · İsrail-Filistin',
+  body:`
+    <div class="quote-banner">Zamanımızdaki büyük toplumsal trajedi: çoğulcu, alt bölümlere ayrılmış bir İBN HALDUN dünyasından, kültürel olarak homojen ancak ekonomik olarak çeşitlenmiş bir DURKHEIM dünyasına geçişin <em>yumuşak bir tarzda olmadığı zaman</em> ortaya çıkıyor.</div>
+    <div class="key-formula">İki modern, okuryazar, endüstriyel toplumun KABİLE TOPLUMU YÖNTEMLERİYLE karşı karşıya geldiği durum konuşulamayacak kadar trajik kalıyor.</div>
+    <div class="quote-banner center"><em>Niçin olmak zorunda olduğunu anlayabilirsek, belki devam etmesi gerekmediğini de anlayabiliriz.</em></div>
+    <div class="footer-note">Bu cümle Gellner'in sosyolojik analizinin neden ahlaki bir jest de olduğunu gösterir.</div>
+  `
+},
+
+/* ---------- BÖLÜM 5 DIVIDER ---------- */
+{
+  type:'divider',
+  section:'Bölüm 5',
+  title:'Geleneksel Sonrası Biçimler',
+  body:`
+    <div class="div-section">Bölüm 5</div>
+    <h1>İslam'da <em style="color:var(--gold);font-style:italic;">Geleneksel Sonrası</em> Biçimler</h1>
+    <div class="div-deco"></div>
+    <div class="div-subtitle">Üç Unsurlu Yelpaze · Berberi Kutsal Nesepleri · Şeyh el-Alavi</div>
+  `
+},
+
+/* ---------- 33. UC BUYUK TEZ ---------- */
+{
+  type:'std',
+  section:'Bölüm 5',
+  title:'Bölümün Üç Büyük Tezi',
+  body:`
+    <div class="cards-3">
+      <div class="card gold">
+        <h3>Tez 1 — Üç Unsurlu Yelpaze</h3>
+        <p>İslam: Sol (cemaat) · Orta (Kitap) · Sağ (Liderlik). Aşırı uçlar nadir; ortodoksi içindeki Sünni-mutasavvıf gerilimi tarihseldir.</p>
+      </div>
+      <div class="card teal">
+        <h3>Tez 2 — Kabile Sofuluğu</h3>
+        <p>Berberi igurramen <em>Hıristiyan anlamıyla "kutsal kişi" değildir</em>. Onlar yapısal aracılardır: kabileler arasında barış, sınır, ortak yemin.</p>
+      </div>
+      <div class="card brown">
+        <h3>Tez 3 — Sömürge Sonrası Trajedi</h3>
+        <p>Kuzey Afrika milliyetçiliği <strong>kendi dinsel geleneğini yok ederek</strong> modernleşti. Avrupa'da Reform süper-devleti yıkarken, Mağrip'te <em>küçük ruhani alt-devletleri</em> yıktı.</p>
+      </div>
+    </div>
+    <div class="key-formula">İslam'ın sosyolojik mucizesi paradoksal olarak, MODERNLEŞMEDEKİ TRAJEDİSİDİR.</div>
+  `
+},
+
+/* ---------- 34. UC UNSURLU YELPAZE ---------- */
+{
+  type:'std',
+  section:'Bölüm 5',
+  title:'Üç Unsurlu Yelpaze — Yapısal Şema',
+  body:`
+    <div class="cards-3">
+      <div class="card teal">
+        <h3>⬅ SOL — Toplumsal Mutabakat</h3>
+        <p>İslamî Ümmet, topluluk rızası, şûra.</p>
+        <p style="margin-top:6px;font-style:italic;font-size:14px;">Aşırı uç: Haricilik — Peygamber ailesini reddeder, saf cemaati merkeze alır.</p>
+      </div>
+      <div class="card gold">
+        <h3>ORTA — Kutsal Kitap</h3>
+        <p>Ortak zemin.</p>
+        <p style="margin-top:6px;font-style:italic;font-size:14px;">Hemen hiçbir Müslüman hareket Kur'an'ın otoritesini tamamen reddetmez.</p>
+      </div>
+      <div class="card brown">
+        <h3>SAĞ — Örgütlenme / Liderlik ➡</h3>
+        <p>İmamet, kişi kültü, kutsal soy.</p>
+        <p style="margin-top:6px;font-style:italic;font-size:14px;">Aşırı uç: Aşırı Şiilik (İsmaililik) — İmamı Tanrılaştırma, ruh göçü, şeriat-dışılık.</p>
+      </div>
+    </div>
+    <div class="footer-note">Tarih boyunca gerilim iki biçimde sürdü: <span class="text-gold">sınırsız</span> (erken dönem aşırı mezhepler arasında) ve <span class="text-gold">sınırlı</span> (Sünni ortodoksi içinde ulema-mutasavvıf gerilimi). Sınırlamayı öğrenmek = İslam'ın yapısal olgunluğu.</div>
+  `
+},
+
+/* ---------- 35. ISMAILI AGA HAN ---------- */
+{
+  type:'split',
+  section:'Bölüm 5',
+  title:'İsmaili Ağa Hanların Modern Dönüşümü',
+  image:'13_aga_khan_bombay.jpg',
+  imageCaption:'19. yy Bombay — Aşırı Şiilik kapitalist başarıya dönüşür',
+  body:`
+    <div class="quote-banner">Aşırı Şii ilahiyat ("İmam her şeydir") modern sömürge koşullarında <em>avantaja</em> dönüşür.</div>
+    <div class="items-list">
+      <div class="item-row"><span class="step-num">1</span><div class="item-text">Ağa Han İran'dan kaçar, İngiliz Hindistanı'na yerleşir.</div></div>
+      <div class="item-row"><span class="step-num">2</span><div class="item-text">Müritler dava açar — yaşam tarzı imam iddiasıyla çelişir. Yargıç Arnould (1866): <strong>imamdır</strong>.</div></div>
+      <div class="item-row"><span class="step-num">3</span><div class="item-text">İmam sömürgeci yönetimle direkt temas → cemaat adına siyasal rant. <strong>Cemaat Wirtschaftswunder</strong>.</div></div>
+    </div>
+    <div class="footer-note">Gellner'in metodolojik dersi: <span class="text-gold">aşırı dogmatizm modernleşmenin önünde engel değil, aracı olabilir.</span> Kutsal kişinin otoritesi merkezîleştiği için modernleşme yukarıdan kusursuz uygulanır.</div>
+  `
+},
+
+/* ---------- 36. SENEGAL MURITLERI ---------- */
+{
+  type:'split',
+  section:'Bölüm 5',
+  title:'Senegal Müritleri — Yerfıstığı Tasavvufu',
+  image:'14_senegal_murids.jpg',
+  imageCaption:'Tarımsal kibutzlar: Mürit ekonomisinin doğuşu',
+  body:`
+    <div class="quote-banner">Tasavvuf <em>ilke olarak</em> bireysel mistik çilekeşlik olsa da, somut tarihsel koşullarda <strong>kolektif tarım ekonomisinin motoru</strong> olabilir.</div>
+    <div class="cards-2">
+      <div class="card teal">
+        <h3>Şeyh İbra Fall + Talibés</h3>
+        <p>Fransız fethi savaşçı aristokrasiyi tasfiye etti — din en makul alternatif örgütlenme oldu. Boş Afrika topraklarına yerleşen çıraklar tarımsal kibutzlar kurdular.</p>
+      </div>
+      <div class="card gold">
+        <h3>Yerfıstığı + Demokrasi</h3>
+        <p>Senegal'in başlıca ihraç ürününü örgütlediler. Fransız seçmenli politikaya katıldılar — <em>oylarını yerfıstığı satar gibi sattılar</em>.</p>
+      </div>
+    </div>
+    <div class="footer-note">Weber'e sessiz itiraz: Müslüman ekonomik başarılar <span class="text-gold">kitabî ortodoksi'den değil, "sapkın" dinsel biçimlerden</span> geldi (İsmaili + Mürit).</div>
+  `
+},
+
+/* ---------- 37. YEDEK INANC DIZGELERI ---------- */
+{
+  type:'std',
+  section:'Bölüm 5',
+  title:'Yedek İnanç Dizgeleri — Metodolojik Uyarı',
+  body:`
+    <div class="quote-banner">Toplumların üyelerinin inanç ve değerleri ölçüsünde açıklanması, her üyenin dünyaya ilişkin <em>tek bir tutarlı inanç dizgesi</em>ne sahip olduğu anlamını doğurur. <strong>BU BÜYÜK BİR YANLIŞLIK GİBİ GÖRÜNÜYOR.</strong></div>
+    <div class="key-formula">İnsanlar tek bir "inanç sistemi"ne değil, YEDEK İNANÇ DİZGELERİNE sahiptir; koşullara göre birini aktif eder.</div>
+    <p style="font-size:clamp(15px,1.4vw,18px);line-height:1.6;color:var(--muted);text-align:center;margin:14px auto;max-width:820px;">Müslüman bir kabile mensubu sabah evliyaya türbede dua edebilir, öğleden sonra alimden fıkıh sorabilir, akşam tarikat zikrine katılabilir — <strong style="color:var(--gold-light);">ve hiçbiri diğerini geçersiz kılmaz</strong>. Çünkü her biri farklı toplumsal işlev görür.</p>
+    <div class="footer-note">"Tutarlı inanç sistemi" arayışı, modern Batılı bir <span class="text-gold">yanılsamadır</span>.</div>
+  `
+},
+
+/* ---------- 38. BERBERI KUTSAL NESEPLERI ---------- */
+{
+  type:'split',
+  section:'Bölüm 5',
+  title:'Berberi Kutsal Nesepleri (Igurramen) — Yedi İşlev',
+  image:'15_atlas_shrine.jpg',
+  imageCaption:'Atlas Dağları — kabile sınırında bir qubba',
+  body:`
+    <div class="items-list">
+      <div class="item-row"><span class="step-num">1</span><div class="item-text"><strong>Sınır belirleyici:</strong> Kabileler arası fiziksel sınırlar kutsal yerleşimlerin üstünde.</div></div>
+      <div class="item-row"><span class="step-num">2</span><div class="item-text"><strong>Ortak yemin yargıcı:</strong> 10 kişiden fazla yeminli ihtilaflar türbede.</div></div>
+      <div class="item-row"><span class="step-num">3</span><div class="item-text"><strong>Barış aracısı:</strong> Kabileler arası çatışmada tarafsız aracı.</div></div>
+      <div class="item-row"><span class="step-num">4</span><div class="item-text"><strong>İslamî kimlik taşıyıcısı:</strong> Okuryazar olmayan kabilelere geniş İslam'ı temsil eder.</div></div>
+      <div class="item-row"><span class="step-num">5</span><div class="item-text"><strong>Büyük Geleneğe demirleme:</strong> Yerel cemaati daha geniş İslam toplumuna bağlar.</div></div>
+      <div class="item-row"><span class="step-num">6</span><div class="item-text"><strong>Pazar ve festival koruyucusu.</strong></div></div>
+      <div class="item-row"><span class="step-num">7</span><div class="item-text"><strong>Kutsal onaylayıcı:</strong> Seçimler, kan parası, sözleşmeler.</div></div>
+    </div>
+    <div class="footer-note">Kutsal veraset paradoksu: resmi olarak "kararı yalnızca Tanrı verir" denir — ama gerçekte <span class="text-gold">kararı kabile meclisi verir</span>.</div>
+  `
+},
+
+/* ---------- 39. AYT ABDILER ---------- */
+{
+  type:'std',
+  section:'Bölüm 5',
+  title:'Ayt Abdiler — "Kendimizi Biliyoruz"',
+  body:`
+    <div class="cards-2">
+      <div class="card brown">
+        <h3>Söylence 1 — İç Hatırlama (YASAK)</h3>
+        <p>"Dans söylencesi": tekkede dervişlerin çılgınca dansı, evli kadınların katılımı, kan davası, yedi yıl süren olaylar. <strong>Ayt Abdiler arasında anlatılması yasaktır</strong> — uğursuzluk getirebilir.</p>
+      </div>
+      <div class="card teal">
+        <h3>Söylence 2 — Dış Anlatım (SERBEST)</h3>
+        <p>"Tagust ve Sultan Mulay Raşid": sultana karşı kavga verdikleri için sürgün, dağlara çekiliş. Bu söylence dışarıya serbestçe anlatılır.</p>
+      </div>
+    </div>
+    <div class="quote-banner center"><em>Augustinusvari jest:</em> "Tanrım, beni lekesiz kıl, ama henüz değil."</div>
+    <p style="font-size:clamp(15px,1.4vw,18px);line-height:1.55;color:var(--muted);text-align:center;margin:14px auto;max-width:780px;">Huysuz ve kavga-düşkünü olmamamız gerektiğini biliyoruz, ve aynı zamanda bunun tam bizi anlattığını da çok daha iyi biliyoruz.</p>
+    <div class="footer-note">Söylenebilir ile söylenemez arasındaki ayrımın <span class="text-gold">toplumsal yönetimi</span>.</div>
+  `
+},
+
+/* ---------- 40. SEYH EL-ALAVI ---------- */
+{
+  type:'split',
+  section:'Bölüm 5',
+  title:'Şeyh Ahmed el-Alavi (1869–1934) — Örnek Olay',
+  image:'16_sheikh_alawi.jpg',
+  imageCaption:'Mostegânim, Cezayir — bir mutasavvıfın hayatı',
+  body:`
+    <div class="quote-banner">Akdeniz'in Müslüman güney kıyısı dinde, kuzey kıyısının — Avrupa'nın — bir bakıma <em>AYNA GÖRÜNTÜSÜDÜR</em>. Avrupa'da Katolik Kilisesi hiyerarşi üretir; Kuzey Afrika'da <strong>aykırı dinsel örgütlenmeler bir tür kabile gibi davranır</strong>.</div>
+    <div class="items-list">
+      <div class="item-row"><span class="step-num">1</span><div class="item-text"><strong>Başlangıç:</strong> 1869 Mosteganim, yoksul aile, ayakkabı tamircisi baba. "Alevi" soyadı belirsiz.</div></div>
+      <div class="item-row"><span class="step-num">2</span><div class="item-text"><strong>İlk tarikat — İseviler:</strong> yılan oynatma, ateş yeme. Sonra hocaya rastlar, terk eder.</div></div>
+      <div class="item-row"><span class="step-num">3</span><div class="item-text"><strong>Orta yaş — Darqavi:</strong> kitabî, ciddi mutasavvıf kol. Skolastik ilahiyatı bırakmaya zorlanır.</div></div>
+      <div class="item-row"><span class="step-num">4</span><div class="item-text"><strong>Olgunluk:</strong> Kendi zaviyesini kurar; Darqavi merkeziyle bağlar kopar.</div></div>
+    </div>
+  `
+},
+
+/* ---------- 41. TARIKAT TASFIYE ---------- */
+{
+  type:'std',
+  section:'Bölüm 5',
+  title:'Tarikat Sosyolojisi ve Milliyetçi Tasfiye',
+  body:`
+    <div class="cards-2">
+      <div class="card teal">
+        <h3>Şeyh'in Reformcu Adımı</h3>
+        <p>Gizliden gizliye Protestan dinsel idealini kabul eder — <strong>evliya aracılığını üstü kapalı reddeder</strong>. Reformist bir adımı 'gizli' atar.</p>
+      </div>
+      <div class="card gold">
+        <h3>Ruhani Şecere</h3>
+        <p>Tarikatlar ruhani şecere etrafında. Ama ruhani şecereler fiziksel olanlar gibi tek yanlı değil — <em>birlikte akabilirler</em>. Bir insanın birden çok ruhani babası olabilir.</p>
+      </div>
+    </div>
+    <div class="quote-banner center">Avrupa'da [laikleşme-milliyetçilik] <em>RUHANİ BİR SÜPER-DEVLET BİRLİĞİNİ</em> yıkarken, Kuzey Afrika'da <em>PARÇALI, KÜÇÜK, RUHANİ KABİLELERE — alt devletlere</em> yöneldi.</div>
+    <div class="key-formula">Avrupa'da modernleşme PLÜRALİZM; Kuzey Afrika'da modernleşme HOMOJENLEŞME üretti.</div>
+  `
+},
+
+/* ---------- BÖLÜM 6 DIVIDER ---------- */
+{
+  type:'divider',
+  section:'Bölüm 6',
+  title:'Müslüman Toplum — Evet ama Nasıl?',
+  body:`
+    <div class="div-section">Bölüm 6</div>
+    <h1>Müslüman Toplum — <em style="color:var(--gold);font-style:italic;">Evet ama Nasıl?</em></h1>
+    <div class="div-deco"></div>
+    <div class="div-subtitle">Diğer alimleri öve-eleştire kendi kuramını savunuyor, nüanslıyor, genişletiyor.</div>
+  `
+},
+
+/* ---------- 42. SONA DOGRU 4 TEZ ---------- */
+{
+  type:'std',
+  section:'Bölüm 6',
+  title:'Sona Doğru — Dört Büyük İddia',
+  body:`
+    <div class="cards-4">
+      <div class="card teal">
+        <h3>Tez 1 — İki Geleneksel Kültür</h3>
+        <p>Tek tip değil iki versiyon: <strong>İbn Haldun tarzı</strong> + <strong>Osmanlı versiyonu</strong>.</p>
+      </div>
+      <div class="card gold">
+        <h3>Tez 2 — Makhzen / Siba</h3>
+        <p>Mağrip'te iktidar tam merkezileşmedi. Nüfusun yarısı düzenin <em>dışındaydı</em>.</p>
+      </div>
+      <div class="card brown">
+        <h3>Tez 3 — Üçgen</h3>
+        <p>Kabile–Murabıt–Devlet. Murabıt sadece dinsel figür değil, <strong>aracı</strong>.</p>
+      </div>
+      <div class="card center-dark">
+        <h3>Tez 4 — Radikal İslam'ın Yükselişi</h3>
+        <p>Sömürge + sanayileşme dengeyi bozdu. <strong>20. yy siyasi İslamı</strong> bu dönüşümün ürünüdür.</p>
+      </div>
+    </div>
+    <div class="key-formula">Geleneksel İslam = ZAYIF DEVLET + GÜÇLÜ KÜLTÜR. Modernleşme bu dengeyi bozdu.</div>
+  `
+},
+
+/* ---------- 43. TUNUS PANTOLON ---------- */
+{
+  type:'std',
+  section:'Bölüm 6',
+  title:'Tunus\'ta Pantolon — Modernleşmenin Yolu',
+  body:`
+    <div class="quote-banner">Eski devletin GÜÇLÜ olduğu yerde, eski münevver sınıf reformculukla oyalanamayacak kadar varlıklı ve kökleşmiştir; bu nedenle değişim isteyenler <em>laisizm bayrağını ve siyasal araçları</em> kullanırlar. Devletin GÜÇSÜZ olduğu yerde, yerel siyasi-dini merkezler <em>saf İslam'a ve benzeri modern yaklaşımlara</em> yönelirler.</div>
+    <div class="cards-2">
+      <div class="card teal">
+        <h3>Güçlü Devlet → Laik Reformculuk</h3>
+        <p>Kemalizm · Tunus · Mısır</p>
+      </div>
+      <div class="card brown">
+        <h3>Zayıf Devlet → Dini Reformculuk</h3>
+        <p>Vahabilik · Deobandi · Selefilik</p>
+      </div>
+    </div>
+    <div class="key-formula">MODERNLEŞMENİN YOLU, ÖNCESİ DEVLET YAPISINA BAĞLIDIR.</div>
+    <div class="footer-note">Türkiye'nin Kemalizm'e, Arap dünyasının reformcu-İslam'a yönelmesi <span class="text-gold">tesadüf değil — yapısal bir farktır</span>.</div>
+  `
+},
+
+/* ---------- 44. ROBERT MONTAGNE ---------- */
+{
+  type:'split',
+  section:'Bölüm 6',
+  title:'Robert Montagne\'nin Sosyolojisi — Makhzen / Siba',
+  image:'17_makhzen_siba.jpg',
+  imageCaption:'Fas: iki yarı, bir tek devlet',
+  body:`
+    <table class="comp-table">
+      <thead><tr><th>Kavram</th><th class="col-teal">Açıklama</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Makhzen</strong></td><td class="col-teal">Sultan'ın yönettiği alan — şehirler, vergi, ordu.</td></tr>
+        <tr><td><strong>Siba</strong></td><td class="col-teal">Kabile alanları — vergi vermez, teokrasiye saygılı ama boyun eğmez.</td></tr>
+        <tr><td><strong>Kaid</strong></td><td class="col-teal">Sultan'ın temsilcisi (vali-benzeri).</td></tr>
+        <tr><td><strong>Amghar</strong></td><td class="col-teal">Berberi kabile reisi — seçimle gelir, "tiran"a benzer.</td></tr>
+      </tbody>
+    </table>
+    <div class="footer-note"><strong>Ortak merkezli yapı:</strong> Çekirdek (kabile) → orta halka (müttefikler) → dış halka (fethedilenler). <span class="text-gold">Feodalizm değil — Mağrip'te iktidar rastlantısal kristalleşir.</span></div>
+  `
+},
+
+/* ---------- 45. BAGIMSIZLIK SONRASI ---------- */
+{
+  type:'std',
+  section:'Bölüm 6',
+  title:'Bağımsızlık Sonrası Fas\'ta Kırsal İsyanlar — Paradoks',
+  body:`
+    <div class="quote-banner">Hanedan temsilcisi Y'yi desteklediğini ilan eden biri, sonra <em>onun destekçisi olarak</em> isyan eder; bu isyan da <em>Y'nin kendisi tarafından</em> bastırılır.</div>
+    <div class="cards-3">
+      <div class="card brown">
+        <h3>Aşama I (–1912)</h3>
+        <p>Geleneksel toplum. Makhzen-Siba ikiliği.</p>
+      </div>
+      <div class="card gold">
+        <h3>Aşama IIA (1912–56)</h3>
+        <p>Fransız himayesi. Dolaylı yönetim.</p>
+      </div>
+      <div class="card center-dark">
+        <h3>Aşama IIB (1956+)</h3>
+        <p>Bağımsızlık sonrası. Merkezileşme.</p>
+      </div>
+    </div>
+    <div class="footer-note">İsyanlar eski "Siba" özgürlüğüne dönüş arzusu değil — <span class="text-gold">yeni ulusal siyasal oyunun parçası, bir pazarlık mekanizması</span>.</div>
+  `
+},
+
+/* ---------- 46. ERMISLER VE TORUNLARI ---------- */
+{
+  type:'std',
+  section:'Bölüm 6',
+  title:'Ermişler ve Torunları — Antropolojik Tartışma',
+  body:`
+    <div class="quote-banner">Kutsiyetin kaynağı sorusuna iki yanıt türü vardı: <em>MUCİZEVİ</em> olanlar ve <em>ŞECEREYE DAYALI</em> olanlar. Aralarındaki gerilim Fas kültürel tarihini şekillendirdi.<small>— Geertz</small></div>
+    <div class="cards-2">
+      <div class="card teal">
+        <h3>Mucize İlkesi</h3>
+        <p>Karizmatik, kişisel olağanüstü yetenek.</p>
+      </div>
+      <div class="card brown">
+        <h3>Şecere İlkesi</h3>
+        <p>Soydan gelen kutsallık.</p>
+      </div>
+    </div>
+    <div class="card center-dark" style="margin-top:14px;">
+      <h3>Gellner'in Eleştirisi (Yapısalcı vs. Yorumcu)</h3>
+      <p>Yorumcu antropoloji (Geertz, Rabinow) "anlam"ı ön plana alır ama <strong>onu üreten yapısal koşulları</strong> ihmal eder. <em>"Yalnızca qabilah vardır" diyerek Kuzey Afrika kabilesinin tanımını ıskalıyor.</em></p>
+    </div>
+  `
+},
+
+/* ---------- 47. PAZARYERINDEKI MURABITLAR ---------- */
+{
+  type:'std',
+  section:'Bölüm 6',
+  title:'Pazaryerindeki Murabıtlar — Murabıtlığın İç Mantığı',
+  body:`
+    <div class="quote-banner center">İslam'da ermiş ve alim arasındaki iki kutba açılan yelpazeden daha önemli olabilecek <em>tek bir yelpaze vardır</em>.</div>
+    <div class="quote-banner">Murabıtlık gerçekten Tanrı'nın kendi himaye ağıydı. Hem insan ilişkilerini yansıttı hem tamamladı: bazı kabile mensupları <em>ruhani olarak barışçı olmak zorundaki ve bu nedenle fazla zalim olamayan ruhani efendileri kullanarak</em> cismani efendilere eğilmekten kaçındı.</div>
+    <div class="key-formula">Murabıtın barışseverliği AHLAKİ ERDEM DEĞİL, YAPISAL ZORUNLULUKTUR.</div>
+    <div class="card center-dark">
+      <h3>Sale — "İtaat Etmeyen Kent"</h3>
+      <p>Müslüman kent itaatinin <strong>istisnası</strong>: Sale korsanlar cumhuriyetiydi (Sallee Rovers), Murabıt gruplarla savaştı. <em>Kentler de kabile-benzeri örgütlenebilir</em> — Gellner'in kabile/kent ikiliği akışkandır.</p>
+    </div>
+  `
+},
+
+/* ---------- 48. ABDULKADIR ---------- */
+{
+  type:'split',
+  section:'Bölüm 6',
+  title:'Yöneticiler ve Kabileciler — Abdülkadir Cezayiri',
+  image:'18_abdelkader.jpg',
+  imageCaption:'1830\'lar Cezayir — klasik İbn Haldun hanedanı',
+  body:`
+    <div class="quote-banner">Abdülkadir devleti <em>ayrıcalıklı kabileler üzerine</em> inşa edildi ve buna göre <strong>kırılgandı</strong>: sıkışma durumunda, en yakın destekçileri üzerine gelebilirdi ve gelecekti.</div>
+    <div class="cards-2">
+      <div class="card brown">
+        <h3>19. yy Direnişi</h3>
+        <p>Kabile-temelli, parçalı. Kabile desteği + dini karizma + savaş yeteneği.</p>
+      </div>
+      <div class="card teal">
+        <h3>20. yy Milliyetçiliği</h3>
+        <p>Ulusal, kentli-elitsel. Süreklilik <em>abartılıdır</em>.</p>
+      </div>
+    </div>
+    <div class="key-formula">Kabile desteği HEM BİR GÜÇ, HEM BİR PRANGADIR.</div>
+    <div class="footer-note">İbn Haldun modelinin <span class="text-gold">kırılganlığının sahada doğrulanması</span> — Bölüm 4'teki tezin ampirik karşılığı.</div>
+  `
+},
+
+/* ---------- 49. TURKLERIN ICAT ETMEDIGI + VAHALI/GOCEBE ---------- */
+{
+  type:'std',
+  section:'Bölüm 6',
+  title:'Türklerin İcat Etmediği Şey + Vahalılar / Göçebeler',
+  body:`
+    <div class="quote-banner"><em>Türklerin tekerleği icat ettiklerine de inanabilirdiniz.</em> Vergi toplama yöntemi İbn Haldun tarafından <strong>altı yüzyıl önce</strong> anlatılmıştı. Osmanlılar buldukları bir şeyi değil, var olan bir kurumu <em>yeniden biçimlendirdiler</em>.</div>
+    <table class="comp-table">
+      <thead><tr><th></th><th class="col-teal">Vahalılar</th><th class="col-brown">Göçebeler</th></tr></thead>
+      <tbody>
+        <tr><td>Yapı</td><td class="col-teal">Yarı-kentli, tabakalaşmış, ortakçı köylü.</td><td class="col-brown">Parçalı, eşitlikçi, hareketli.</td></tr>
+        <tr><td>Örnek</td><td class="col-teal">Tafilalet (Güney Fas)</td><td class="col-brown">Ayt Atta — "parçalı örgütlenmenin dünya şaheseri."</td></tr>
+      </tbody>
+    </table>
+    <div class="footer-note">Ayt Atta, Sahra'dan Atlas'a uzanan muazzam alanda — <span class="text-gold">Evans-Pritchard'ın Nuer'lerinden belki daha mükemmel bir parçalı sistem</span>.</div>
+  `
+},
+
+/* ---------- 50. SON SOZ (CLOSE) ---------- */
+{
+  type:'close',
+  section:'Sonuç',
+  title:'Son Söz — Gellner\'in Büyük Formülü',
+  body:`
+    <div class="close-quote">20. yüzyılda İslam, bütün dünya dinleri arasında <em>en güçlü siyasi itiraz</em> olarak görünür. Geçmişte, çorak bölgenin Müslüman toplumu, büyük siyasi parçalanmalar ve merkezi bir dini hiyerarşi bulunmamasına rağmen, <em>olağanüstü bir istikrar ve homojenlik</em> göstermiştir.</div>
+    <div class="close-cards">
+      <div class="card teal">
+        <h3>GELENEKSEL İSLAM</h3>
+        <p>Zayıf devlet · Güçlü kültür · İki-geleneğin dengesi (kitabî / ritüel) · Parçalı yapıyı koruyan sosyolojik mekanizmalar.</p>
+      </div>
+      <div class="card brown">
+        <h3>MODERN MÜSLÜMAN DÜNYA</h3>
+        <p>Güçlü devlet (Weberci) · Bozulan dengede Büyük Gelenek'in tek başına yaygınlaşması · Radikal-siyasi İslam.</p>
+      </div>
+    </div>
+    <div class="close-logo">— ERNEST GELLNER · MÜSLÜMAN TOPLUM —</div>
+    <div class="close-logo" style="margin-top:8px;">Sunum: Hatice Cengiz</div>
+  `
+}
+
+]; /* === END OF SLIDES === */
+
+/* ============================================================
+   RENDER ENGINE
+   ============================================================ */
+const container = document.getElementById('slides-container');
+const counter = document.getElementById('counter');
+const progress = document.getElementById('progress');
+const navPanel = document.getElementById('nav-panel');
+const navToggle = document.getElementById('nav-toggle');
+const prevBtn = document.getElementById('prev-btn');
+const nextBtn = document.getElementById('next-btn');
+
+let current = 0;
+
+function renderSlides(){
+  container.innerHTML = '';
+  navPanel.innerHTML = '';
+
+  SLIDES.forEach((slide, i) => {
+    const el = document.createElement('section');
+    el.className = 'slide';
+    el.dataset.index = i;
+
+    if (slide.type === 'cover'){
+      el.classList.add('slide-cover');
+      el.style.backgroundImage = `url('${slide.image}')`;
+      el.innerHTML = `<div class="cover-inner">${slide.body}</div>`;
+    }
+    else if (slide.type === 'divider'){
+      el.classList.add('slide-divider');
+      el.innerHTML = slide.body;
+    }
+    else if (slide.type === 'close'){
+      el.classList.add('slide-close');
+      el.innerHTML = slide.body;
+    }
+    else if (slide.type === 'split'){
+      el.classList.add('slide-split');
+      el.innerHTML = `
+        <div class="slide-header">
+          <span class="section-tag">${slide.section}</span>
+          <h2>${slide.title}</h2>
+        </div>
+        <div class="body-row">
+          <div class="img-panel">
+            <img src="${slide.image}" alt="${slide.imageCaption || ''}" onerror="this.style.background='linear-gradient(135deg,#1e3048,#152233)';this.alt='[ ${slide.image} ]';">
+            ${slide.imageCaption ? `<div class="img-caption">${slide.imageCaption}</div>` : ''}
+          </div>
+          <div class="content-panel">${slide.body}</div>
+        </div>
+      `;
+    }
+    else { // std
+      el.classList.add('slide-std');
+      el.innerHTML = `
+        <div class="slide-header">
+          <span class="section-tag">${slide.section}</span>
+          <h2>${slide.title}</h2>
+        </div>
+        <div class="slide-body">${slide.body}</div>
+      `;
+    }
+
+    container.appendChild(el);
+
+    // nav panel item
+    const navItem = document.createElement('div');
+    navItem.className = 'nav-item';
+    navItem.dataset.index = i;
+    navItem.innerHTML = `
+      <div class="nav-section">${slide.section}</div>
+      <div class="nav-title">${slide.title}</div>
+    `;
+    navItem.addEventListener('click', () => { goTo(i); navPanel.classList.remove('open'); });
+    navPanel.appendChild(navItem);
+  });
+  goTo(0);
+}
+
+function goTo(n){
+  if (n < 0) n = SLIDES.length - 1;
+  if (n >= SLIDES.length) n = 0;
+  current = n;
+  document.querySelectorAll('.slide').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(s => s.classList.remove('active'));
+  const slide = container.querySelector(`.slide[data-index="${n}"]`);
+  const navItem = navPanel.querySelector(`.nav-item[data-index="${n}"]`);
+  if (slide) slide.classList.add('active');
+  if (navItem){
+    navItem.classList.add('active');
+    navItem.scrollIntoView({block:'nearest', behavior:'smooth'});
+  }
+  counter.textContent = `${n + 1} / ${SLIDES.length}`;
+  progress.style.width = `${((n + 1) / SLIDES.length) * 100}%`;
+}
+
+/* navigation events */
+prevBtn.addEventListener('click', () => goTo(current - 1));
+nextBtn.addEventListener('click', () => goTo(current + 1));
+navToggle.addEventListener('click', () => navPanel.classList.toggle('open'));
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'ArrowRight' || e.key === ' '){ e.preventDefault(); goTo(current + 1); }
+  else if (e.key === 'ArrowLeft'){ e.preventDefault(); goTo(current - 1); }
+  else if (e.key === 'Home'){ e.preventDefault(); goTo(0); }
+  else if (e.key === 'End'){ e.preventDefault(); goTo(SLIDES.length - 1); }
+  else if (e.key === 'Escape'){ navPanel.classList.remove('open'); }
+});
+
+/* touch swipe */
+let touchStartX = 0, touchEndX = 0;
+container.addEventListener('touchstart', (e) => { touchStartX = e.changedTouches[0].screenX; }, {passive:true});
+container.addEventListener('touchend', (e) => {
+  touchEndX = e.changedTouches[0].screenX;
+  const dx = touchEndX - touchStartX;
+  if (Math.abs(dx) > 50){
+    if (dx < 0) goTo(current + 1);
+    else goTo(current - 1);
+  }
+}, {passive:true});
+
+/* boot */
+renderSlides();
+</script>
+
+</body>
+</html>
